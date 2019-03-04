@@ -1,5 +1,6 @@
 package ru.yandex.test.appmanager;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,6 +17,7 @@ public class GetHelper {
         this.driver = driver;
     }
 
+    @Step("Считать раздел питание")
     public NotebookPower getPowerPrefs(){
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("Время работы от аккумулятора", null);
@@ -23,19 +25,10 @@ public class GetHelper {
         map.put("Количество ячеек аккумулятора",null);
         map.put("Емкость аккумулятора",null);
 
-
-
         List<WebElement> list = driver.findElements(By.xpath("//div[./h2[.='Питание']]/dl"));
         for (WebElement e : list){
             map.put(e.findElement(By.xpath("./dt/span")).getText(), e.findElement(By.xpath("./dd/span")).getText());
         }
-    /*    String batteryType = map.get("Тип аккумулятора");
-        Integer cellsCount = null;
-        if (map.get("Количество ячеек аккумулятора") != null)  cellsCount = Integer.parseInt(map.get("Количество ячеек аккумулятора"));
-        Double capacity = null;
-        if (map.get("Емкость аккумулятора") != null) capacity = Double.parseDouble(map.get("Емкость аккумулятора").replaceAll("[^\\d.]", ""));
-        String workTime = map.get("Время работы от аккумулятора");*/
-
 
         return new NotebookPower(map.get("Тип аккумулятора"),
                 map.get("Количество ячеек аккумулятора") != null ?
@@ -46,6 +39,5 @@ public class GetHelper {
                 null,
                 map.get("Время работы от аккумулятора")
         );
-
     }
 }

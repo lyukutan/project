@@ -1,5 +1,6 @@
 package ru.yandex.test.appmanager;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 
 import org.apache.commons.io.FileUtils;
@@ -19,6 +20,7 @@ public class PrintHelper {
         this.driver=driver;
     }
 
+    @Step("Вывести самый дорогой и самый дешевый товар, вывести разницу в цене")
     public void printExpAndCheap() throws Exception{
         filterHelper.rateByCoast();
         System.out.print("Самый дешевый ноутбук: ");
@@ -37,6 +39,7 @@ public class PrintHelper {
         System.out.println(resultHelper.getElementName(firstElement) + " " + ResultHelper.getElementPrice(firstElement));
     }
 
+    @Step("Вывести сортированный список")
     public void printSortedContent() {
         List<WebElement> allElements = resultHelper.getAllResults();
         ArrayList<String> list = new ArrayList<String>();
@@ -50,6 +53,7 @@ public class PrintHelper {
         }
     }
 
+    @Step("Вывести HashMap")
     public void printMap() {
         List<WebElement> allElements = resultHelper.getAllResults();
         HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -63,6 +67,7 @@ public class PrintHelper {
     }
 
 
+    @Step("Вывести текст из подсказки {item}")
     public void getDescription(String item){
         driver.findElement(By.xpath("//span[text()='" + item + "']//span[@role='button']")).click();
         System.out.println(driver.findElement(By.xpath("//div[contains(@class, 'popup_visibility_visible')]//div[@class='n-hint-button__article']")).getText());
