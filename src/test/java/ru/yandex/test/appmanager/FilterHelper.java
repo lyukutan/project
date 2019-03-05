@@ -16,7 +16,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.test.model.Monitor;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import java.util.ArrayList;
@@ -36,16 +39,25 @@ public class FilterHelper {
         waiter.until(ExpectedConditions.numberOfElementsToBe(By.xpath("//div[@class='preloadable__preloader preloadable__preloader_visibility_visible preloadable__paranja']"), 0));
     }
 
+
+
+    /*
     @Step("Сделать скриншот")
     // @Attachment(value = "Вложение", type = "image/png", fileExtension = ".png")
     public void makeScreenshot() throws Exception {
-        Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS, 500, true).withName("Result" + ++screenshotCount).save();
+        //Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS, 500, true).withName("Result" + ++screenshotCount).save();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        BufferedImage image = Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).getImage();
+        ImageIO.write(image, "png", baos);
+        baos.flush();
+       // scenario.embed(baos.toByteArray(), "image/png");
         Allure.addAttachment("Вложение",
                 "image/png",
-                new ByteArrayInputStream(FileUtils.readFileToByteArray(new File("screenshots/Result" + screenshotCount + ".png"))),
+               // new ByteArrayInputStream(FileUtils.readFileToByteArray(new File("screenshots/Result" + screenshotCount + ".png"))),
+                new ByteArrayInputStream(baos.toByteArray()),
                 ".png");
     }
-
+*/
     @Step("Отсортировать по цене")
     public void rateByCoast() throws InterruptedException {
         driver.findElement(By.xpath("//a[.='по цене']")).click();
@@ -92,7 +104,7 @@ public class FilterHelper {
             this.resetParameters();
             this.setParametersFromClass(monitor);
             this.waitForLoad();
-            this.makeScreenshot();
+            ScreenshotHelper.makeScreenshot(driver);
         }
     }
 
@@ -101,6 +113,8 @@ public class FilterHelper {
         driver.findElement(By.xpath("//span[text()='Все фильтры']")).click();
         driver.findElement(By.xpath("//button[./span[contains(text(),'Сбросить фильтр')]]")).click();
         driver.findElement(By.xpath("//a[./span[text()='Показать подходящие']]")).click();
+        ScreenshotHelper.makeScreenshot(driver);
+
 
     }
 
@@ -138,6 +152,8 @@ public class FilterHelper {
            if ((Monitor) object).getMatrixType() != null) {
     this.setMatrixType(((Monitor) object).getMatrixType());
             }*/
+
+            //ScreenshotHelper.makeScreenshot(driver);
 
         }
     }

@@ -3,6 +3,7 @@ package ru.yandex.test.appmanager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.yandex.test.model.Monitor;
@@ -42,6 +43,7 @@ public class ApplicationManager {
         driver.close();
     }
 
+    @Step("Установить фильтры")
     public void setupFilter() {
         filterHelper.setMaxPrice("30000");
         filterHelper.setManufacturer("HP");
@@ -49,8 +51,10 @@ public class ApplicationManager {
         filterHelper.setColor("черный");
         filterHelper.setColor("белый");
         filterHelper.waitForLoad();
+        ScreenshotHelper.makeScreenshot(driver);
     }
 
+    @Step("Сравнить два блока \"питание\"")
     public void compare2powers(){
         NotebookPower power1 = getHelper.getPowerPrefs();
         driver.get("https://market.yandex.ru/product--noutbuk-hp-250-g6-4lt10ea-intel-core-i3-7020u-2300-mhz-15-6-1366x768-4gb-500gb-hdd-dvd-rw-amd-radeon-520-wi-fi-bluetooth-windows-10-pro/63945141/spec");
@@ -59,10 +63,12 @@ public class ApplicationManager {
         else System.out.println("Две секции питания разные");
     }
 
+    @Step("Вывести текст подсказки")
     public void printDescriotion() {
         printHelper.getDescription("Объем кэша L2");
     }
 
+    @Step("Установить параметры из JSON")
     public void findFromJSON() throws  Exception{
         driver.get("https://market.yandex.ru/catalog--monitory/54539/list?hid=91052");
         Gson gson = new Gson();
