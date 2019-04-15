@@ -88,7 +88,6 @@ public class FilterHelper {
 
     @Step("Установить размер экрана {size}")
     public void setScreenSize(String size) {
-
         driver.findElement(By.xpath("//fieldset[child::legend[.='Размер экрана']]//span[.='" + size + "']")).click();
     }
 
