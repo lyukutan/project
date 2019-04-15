@@ -26,6 +26,7 @@ public class ApplicationManager {
 
 
     public void init() {
+
         System.setProperty("webdriver.gecko.driver", "d:/Test/geckodriver.exe");
         System.setProperty("webdriver.chrome.driver", "d:/Test/chromedriver.exe");
         driver = new ChromeDriver();
