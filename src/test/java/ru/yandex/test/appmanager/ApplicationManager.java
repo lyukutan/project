@@ -6,6 +6,7 @@ import com.google.gson.stream.JsonReader;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.yandex.test.model.Monitor;
 import ru.yandex.test.model.NotebookPower;
 
@@ -27,9 +28,9 @@ public class ApplicationManager {
 
     public void init() {
 
-        System.setProperty("webdriver.gecko.driver", "d:/Test/geckodriver.exe");
-        System.setProperty("webdriver.chrome.driver", "d:/Test/chromedriver.exe");
-        driver = new ChromeDriver();
+        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+        driver = new FirefoxDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(IMPLICITY_WAIT, TimeUnit.SECONDS);
         navigationHelper = new NavigationHelper(driver);
